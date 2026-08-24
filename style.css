@@ -1,0 +1,1082 @@
+* {
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  background: #000 url('assets/background.jpg') center center / cover no-repeat;
+}
+
+/* ===== Обычный стиль (жёлтый) ===== */
+
+.leaflet-popup-content-wrapper {
+  background: #0d0d0d;
+  color: #ffffff;
+  border-radius: 4px;
+  border: 2px solid #ffe700;
+  box-shadow: 0 0 15px rgba(255, 231, 0, 0.25);
+  padding: 0;
+}
+
+.leaflet-popup-tip {
+  background: #0d0d0d;
+  border: 2px solid #ffe700;
+  box-shadow: none;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.45;
+  color: #ffffff;
+  min-width: 240px;
+}
+
+.leaflet-popup-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffe700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 6px;
+}
+
+.leaflet-popup-content p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.leaflet-popup-content b {
+  color: #ffe700;
+  font-weight: 600;
+}
+
+.leaflet-popup-close-button {
+  color: #ffe700 !important;
+  font-size: 18px !important;
+  padding: 6px 8px 0 0 !important;
+  opacity: 0.85;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #fff !important;
+  opacity: 1;
+}
+
+/* ===== Картинка ===== */
+
+.popup-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid #333;
+}
+
+.popup-body {
+  padding: 12px 16px 14px 16px;
+}
+
+/* ===== Красный стиль (опасные статусы) ===== */
+
+.popup-danger .leaflet-popup-content-wrapper {
+  border-color: #ff2a2a;
+  box-shadow: 0 0 15px rgba(255, 42, 42, 0.35);
+}
+
+.popup-danger .leaflet-popup-tip {
+  border-color: #ff2a2a;
+}
+
+.popup-danger .leaflet-popup-content h3 {
+  color: #ff2a2a;
+  border-bottom-color: #441111;
+}
+
+.popup-danger .leaflet-popup-content b {
+  color: #ff2a2a;
+}
+
+.popup-danger .leaflet-popup-close-button {
+  color: #ff2a2a !important;
+}
+
+.popup-danger .leaflet-popup-close-button:hover {
+  color: #ff6b6b !important;
+}
+
+/* ===== Мигающая красная рамка попапа ===== */
+
+.popup-attack .leaflet-popup-content-wrapper {
+  animation: blink-border 2s infinite;
+}
+
+.popup-attack .leaflet-popup-tip {
+  animation: blink-border 2s infinite;
+}
+
+@keyframes blink-border {
+  0%, 49% {
+    border-color: #ff2a2a;
+    box-shadow: 0 0 18px rgba(255, 42, 42, 0.5);
+  }
+  50%, 100% {
+    border-color: transparent;
+    box-shadow: none;
+  }
+}
+
+/* ===== Мигание кружка (от 0.5 до 1) ===== */
+
+.marker-attack {
+  animation: blink-marker 2s infinite !important;
+}
+
+@keyframes blink-marker {
+  0%, 49% {
+    fill-opacity: 1;
+    opacity: 1;
+  }
+  50%, 100% {
+    fill-opacity: 0.5;
+    opacity: 0.5;
+  }
+}
+
+/* ===== Экран входа ===== */
+
+#login-screen {
+  position: fixed;
+  inset: 0;
+  background: #000 url('assets/background.jpg') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.login-box {
+  background: rgba(13, 13, 13, 0.95);
+  border: 2px solid #ffe700;
+  padding: 40px 50px;
+  text-align: center;
+  min-width: 340px;
+  box-shadow: 0 0 30px rgba(255, 231, 0, 0.2);
+}
+
+.login-box h1 {
+  color: #ffe700;
+  font-size: 28px;
+  margin-bottom: 6px;
+  letter-spacing: 2px;
+}
+
+.login-box .subtitle {
+  color: #aaa;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.login-box input[type="email"],
+.login-box input[type="password"],
+.login-box input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+.login-box input:focus {
+  border-color: #ffe700;
+}
+
+.password-wrapper {
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.show-password {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #aaa;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.show-password input {
+  width: auto;
+  margin: 0;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  background: #ffe700;
+  color: #000;
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.login-box button:hover {
+  background: #fff;
+}
+
+.login-box button.guest {
+  background: transparent;
+  border: 1px solid #666;
+  color: #ccc;
+  margin-top: 12px;
+}
+
+.login-box button.guest:hover {
+  border-color: #ffe700;
+  color: #ffe700;
+}
+
+#login-error {
+  color: #ff2a2a;
+  margin-top: 16px;
+  min-height: 20px;
+  font-size: 14px;
+}
+
+/* ===== Информация о пользователе ===== */
+
+#user-info {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid #ffe700;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+#user-name {
+  color: #fff;
+  font-weight: 600;
+}
+
+#user-role {
+  color: #aaa;
+  font-size: 13px;
+}
+
+#user-role.role-admin {
+  color: #ffe700;
+}
+
+#btn-logout {
+  background: transparent;
+  border: 1px solid #666;
+  color: #ccc;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#btn-logout:hover {
+  border-color: #ff2a2a;
+  color: #ff2a2a;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  background: #000 url('assets/background.jpg') center center / cover no-repeat;
+}
+
+/* ===== Кнопка Админ-панели ===== */
+#btn-admin {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  background: #ffe700;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#btn-admin:hover {
+  background: #fff;
+}
+
+/* ===== Админ-панель ===== */
+#admin-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #ffe700;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#admin-panel.open {
+  right: 0;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #333;
+  background: #111;
+}
+
+.admin-header h2 {
+  color: #ffe700;
+  margin: 0;
+  font-size: 18px;
+}
+
+#btn-close-admin {
+  background: none;
+  border: none;
+  color: #ffe700;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.admin-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid #222;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.admin-section h3 {
+  color: #ffe700;
+  margin: 0 0 12px 0;
+  font-size: 15px;
+}
+
+#planet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.planet-item {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.planet-item strong {
+  color: #fff;
+  font-size: 14px;
+}
+
+.planet-item select {
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 6px;
+  font-size: 13px;
+}
+
+.planet-item select:focus {
+  border-color: #ffe700;
+  outline: none;
+}
+
+.small-btn {
+  margin-top: 10px;
+  background: transparent;
+  border: 1px solid #666;
+  color: #ccc;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.small-btn:hover {
+  border-color: #ffe700;
+  color: #ffe700;
+}
+
+#action-log {
+  background: #111;
+  border: 1px solid #333;
+  padding: 10px;
+  height: 180px;
+  overflow-y: auto;
+  font-size: 12px;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.log-entry {
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #222;
+}
+
+.log-time {
+  color: #666;
+  font-size: 11px;
+}
+
+/* ===== Кнопка Флота ===== */
+#btn-fleet {
+  position: absolute;
+  top: 12px;
+  left: 150px;
+  z-index: 1000;
+  background: #00b4d8;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#btn-fleet:hover {
+  background: #90e0ef;
+}
+
+/* ===== Панель флота ===== */
+#fleet-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #00b4d8;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#fleet-panel.open {
+  right: 0;
+}
+
+.fleet-item {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.fleet-item strong {
+  color: #00b4d8;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.fleet-item .location {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.fleet-item select {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 6px;
+  margin-bottom: 8px;
+}
+
+.fleet-item button {
+  width: 100%;
+  background: #00b4d8;
+  color: #000;
+  border: none;
+  padding: 7px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fleet-item button:hover {
+  background: #90e0ef;
+}
+
+.fleet-item button:disabled {
+  background: #333;
+  color: #777;
+  cursor: not-allowed;
+}
+
+/* ===== Кнопка Логистики ===== */
+#btn-logistics {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  background: #00b4d8;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#btn-logistics:hover {
+  background: #90e0ef;
+}
+
+/* ===== Панель логистики ===== */
+#logistics-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #00b4d8;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#logistics-panel.open {
+  right: 0;
+}
+
+#logistics-panel select {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px;
+  margin-top: 4px;
+}
+
+.route-item {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+.route-item strong {
+  color: #00b4d8;
+}
+
+/* Кнопка запросов San */
+#btn-funds {
+  position: absolute;
+  top: 52px;
+  left: 12px;
+  z-index: 1000;
+  background: #9b59b6;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: none;
+}
+
+#btn-funds:hover {
+  background: #bb8fce;
+}
+
+#funds-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #9b59b6;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#funds-panel.open {
+  right: 0;
+}
+
+#funds-panel input[type="number"],
+#funds-panel textarea {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px;
+  margin-top: 4px;
+  font-family: inherit;
+}
+
+.fund-request-item {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  background: #000 url('assets/background.jpg') center center / cover no-repeat;
+  box-shadow: none;
+}
+
+/* Свечение только у круглой карты */
+.leaflet-image-layer {
+  border-radius: 50%;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5))
+          drop-shadow(0 0 40px rgba(238, 235, 235, 0.61));
+}
+
+#btn-geo {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  background: #2ecc71;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: none;
+}
+
+#btn-geo:hover {
+  background: #58d68d;
+}
+
+#geo-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #2ecc71;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#geo-panel.open {
+  right: 0;
+}
+
+#geo-panel select {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px;
+  margin-top: 4px;
+}
+
+.probe-item, .geo-result-item {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+.geo-result-item strong {
+  color: #2ecc71;
+}
+
+/* ===== Полосы новостей (Helldivers style) ===== */
+.news-bar {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 28px;
+  background: #0a0a0a;
+  border-top: 2px solid #ffe700;
+  border-bottom: 2px solid #ffe700;
+  overflow: hidden;
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+}
+
+.news-top {
+  top: 0;
+}
+
+.news-bottom {
+  bottom: 0;
+}
+
+.news-track {
+  display: flex;
+  white-space: nowrap;
+  animation: news-scroll 40s linear infinite;
+}
+
+.news-text {
+  color: #ffe700;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-right: 80px;
+}
+
+@keyframes news-scroll {
+  0%   { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Чтобы карта не залезала под полосы */
+#map {
+  top: 28px;
+  height: calc(100% - 56px) !important;
+}
+
+#btn-news {
+  position: absolute;
+  top: 40px;
+  right: 12px;
+  z-index: 1000;
+  background: #ffe700;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: none;
+}
+
+#btn-news:hover {
+  background: #fff59d;
+}
+
+#news-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #ffe700;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#news-panel.open {
+  right: 0;
+}
+
+#news-panel textarea {
+  width: 100%;
+  background: #111;
+  color: #ffe700;
+  border: 1px solid #444;
+  padding: 8px;
+  margin-top: 4px;
+  font-family: inherit;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+#btn-admin,
+#btn-fleet,
+#btn-logistics,
+#btn-funds,
+#btn-geo,
+#btn-news {
+  position: absolute;
+  z-index: 1000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Левый столбец — под верхней полосой новостей */
+#btn-logistics {
+  top: 40px;
+  left: 12px;
+  background: #00b4d8;
+  color: #000;
+}
+
+#btn-funds {
+  top: 80px;
+  left: 12px;
+  background: #9b59b6;
+  color: #fff;
+}
+
+#btn-geo {
+  top: 40px;
+  left: 12px;
+  background: #2ecc71;
+  color: #000;
+}
+
+#btn-fleet {
+  top: 40px;
+  left: 160px;
+  background: #00b4d8;
+  color: #000;
+}
+
+/* Справа */
+#btn-admin {
+  top: 40px;
+  left: 12px;
+  left: auto;
+  background: #ffe700;
+  color: #000;
+}
+
+#btn-news {
+  position: absolute;
+  top: 80px;
+  left: 12px;
+  right: auto;      /* сбрасываем правый край */
+  background: #ff3c00;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  z-index: 1000;
+  display: none;
+}
+
+#user-info {
+  top: 40px; /* если был top: 12px — тоже опусти */
+}
+
+/* ===== Кнопки Главного приказа ===== */
+#btn-order {
+  position: absolute;
+  top: 120px;
+  left: 12px;
+  z-index: 1000;
+  background: #ffe700;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: none;
+}
+
+#btn-order:hover {
+  background: #fff59d;
+}
+
+#btn-view-order {
+  position: absolute;
+  top: 160px;
+  left: 12px;
+  z-index: 1000;
+  background: #1a1a1a;
+  color: #ffe700;
+  border: 2px solid #ffe700;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: none;
+}
+
+#btn-view-order:hover {
+  background: #222;
+}
+
+/* ===== Панель редактирования приказа ===== */
+#order-edit-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #ffe700;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#order-edit-panel.open {
+  right: 0;
+}
+
+#order-edit-panel input[type="text"],
+#order-edit-panel textarea {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px;
+  margin-top: 4px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* ===== Карточка приказа (оверлей) ===== */
+.order-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.order-card {
+  position: relative;
+  width: min(480px, 100%);
+  background: #0d0d0d;
+  border: 2px solid #ffe700;
+  box-shadow: 0 0 30px rgba(255, 231, 0, 0.35);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.order-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #ffe700;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 2;
+  line-height: 1;
+}
+
+.order-close:hover {
+  color: #fff;
+}
+
+.order-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid #333;
+}
+
+.order-body {
+  padding: 16px 20px 20px;
+}
+
+.order-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #ffe700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.order-body h2 {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  color: #ffe700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 8px;
+}
+
+.order-body p {
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
