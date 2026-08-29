@@ -1,37 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Технические работы</title>
-    <style>
-        body {
-            background: #0a0a0f;
-            color: #e0e0e0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            margin: 0;
-        }
-        .message {
-            border: 2px solid #ff4444;
-            padding: 40px;
-            border-radius: 10px;
-            background: #1a1a2e;
-        }
-        h1 { color: #ff4444; }
-        .emoji { font-size: 48px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avid RP-shers</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="message">
-        <div class="emoji">🔧</div>
-        <h1>Технические работы</h1>
-        <p>Сайт временно недоступен.</p>
-        <p>Ведутся обновления и улучшения.</p>
-        <p>Вернёмся скоро!</p>
-        <p style="color: #666; font-size: 14px; margin-top: 20px;">Спасибо за понимание</p>
+
+  <div id="login-screen">
+    <div class="login-box">
+      <h1>Avid RP-shers</h1>
+      <p class="subtitle">Federation of Super Earth</p>
+      <input type="email" id="login-email" placeholder="Логин (email)" autocomplete="username">
+      <div class="password-wrapper">
+        <input type="password" id="login-password" placeholder="Пароль" autocomplete="current-password">
+        <label class="show-password">
+          <input type="checkbox" id="toggle-password">
+          Показать пароль
+        </label>
+      </div>
+      <button id="btn-login">Войти</button>
+      <button id="btn-guest" class="guest">Войти как наблюдатель</button>
+      <p id="login-error"></p>
     </div>
+  </div>
+
+  <div id="app" style="display: none;">
+    <div id="user-info">
+      <span id="user-name"></span>
+      <span id="user-role"></span>
+      <button id="btn-logout">Выйти</button>
+    </div>
+
+    <button id="btn-admin" style="display: none;">Админ-панель</button>
+    <button id="btn-fleet" style="display: none;">Флот</button>
+    <button id="btn-logistics" style="display: none;">Логистика</button>
+    <button id="btn-funds" style="display: none;">Запрос средств</button>
+    <button id="btn-geo" style="display: none;">Георазведка</button>
+    <button id="btn-news" style="display: none;">Новости</button>
+    <button id="btn-order" style="display: none;">Главный приказ</button>
+    <button id="btn-view-order" style="display: none;">Приказ</button>
+
+    <div id="news-top" class="news-bar news-top">
+      <div class="news-track" id="news-top-track">
+        <span class="news-text">ДОБРО ПОЖАЛОВАТЬ В AVID RP-SHERS · ЗА ДЕМОКРАТИЮ</span>
+      </div>
+    </div>
+
+    <div id="map"></div>
+
+    <div id="news-bottom" class="news-bar news-bottom">
+      <div class="news-track" id="news-bottom-track">
+        <span class="news-text">СУПЕР-ЗЕМЛЯ НЕ СЛОМЛЕНА · УНИЧТОЖЬТЕ ВРАГОВ СВОБОДЫ</span>
+      </div>
+    </div>
+
+    <!-- Админ -->
+    <div id="admin-panel">
+      <div class="admin-header">
+        <h2>Админ-панель</h2>
+        <button id="btn-close-admin">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Управление планетами</h3>
+        <div id="planet-list"></div>
+      </div>
+      <div class="admin-section">
+        <h3>Запросы средств (San)</h3>
+        <div id="admin-fund-requests"></div>
+      </div>
+      <div class="admin-section">
+        <h3>Сброс георазведки (Freya)</h3>
+        <select id="clear-geo-planet"></select>
+        <button id="btn-clear-planet-geo" style="margin-top:8px; width:100%; background:#e67e22; color:#fff; border:none; padding:8px; cursor:pointer;">
+          Очистить ресурсы выбранной планеты
+        </button>
+        <button id="btn-clear-all-geo" style="margin-top:6px; width:100%; background:#c0392b; color:#fff; border:none; padding:8px; cursor:pointer;">
+          Очистить ресурсы на ВСЕХ планетах
+        </button>
+      </div>
+      <div class="admin-section">
+        <h3>Лог действий</h3>
+        <div id="action-log"></div>
+        <button id="btn-clear-log" class="small-btn">Очистить лог</button>
+      </div>
+    </div>
+
+    <!-- Флот -->
+    <div id="fleet-panel">
+      <div class="admin-header">
+        <h2>Орбитальный флот</h2>
+        <button id="btn-close-fleet">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Дивизии</h3>
+        <div id="fleet-list"></div>
+      </div>
+    </div>
+
+    <!-- Логистика -->
+    <div id="logistics-panel">
+      <div class="admin-header">
+        <h2>Логистика</h2>
+        <button id="btn-close-logistics">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Баланс: <span id="san-credits">5000</span> ¢</h3>
+      </div>
+      <div class="admin-section">
+        <h3>Создать маршрут</h3>
+        <label style="color:#aaa; font-size:13px;">Откуда:</label>
+        <select id="route-from"></select>
+        <label style="color:#aaa; font-size:13px; margin-top:8px; display:block;">Куда:</label>
+        <select id="route-to"></select>
+        <label style="display:flex; align-items:center; gap:8px; margin-top:12px; color:#ccc; font-size:13px; cursor:pointer;">
+          <input type="checkbox" id="route-convoy">
+          Конвой (+3000 ¢) — защита от атак
+        </label>
+        <button id="btn-create-route" style="margin-top:12px; width:100%; background:#00b4d8; color:#000; border:none; padding:10px; font-weight:700; cursor:pointer;">
+          Отправить поставку
+        </button>
+        <p style="color:#888; font-size:12px; margin-top:8px;">Базовая: 500 ¢ · с конвоем: 3500 ¢ · награда: +1500 ¢</p>
+      </div>
+      <div class="admin-section">
+        <h3>Активные поставки</h3>
+        <div id="routes-list"></div>
+      </div>
+      <div class="admin-section">
+        <h3>Результаты поставок</h3>
+        <div id="shipment-results"></div>
+        <button id="btn-clear-shipment-results" class="small-btn" style="margin-top:8px;">Очистить результаты</button>
+      </div>
+    </div>
+
+    <!-- Запрос средств -->
+    <div id="funds-panel">
+      <div class="admin-header">
+        <h2>Запрос средств</h2>
+        <button id="btn-close-funds">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Баланс: <span id="san-credits-funds">5000</span> ¢</h3>
+      </div>
+      <div class="admin-section">
+        <h3>Новый запрос для Freya</h3>
+        <label style="color:#aaa; font-size:13px;">Сумма (¢)</label>
+        <input type="number" id="fund-amount" min="100" step="100" value="1000">
+        <label style="color:#aaa; font-size:13px; margin-top:8px; display:block;">Комментарий</label>
+        <textarea id="fund-comment" rows="3" placeholder="На что нужны средства..."></textarea>
+        <button id="btn-send-fund-request" style="margin-top:12px; width:100%; background:#9b59b6; color:#fff; border:none; padding:10px; font-weight:700; cursor:pointer;">
+          Отправить запрос
+        </button>
+      </div>
+      <div class="admin-section">
+        <h3>Мои запросы</h3>
+        <div id="my-fund-requests"></div>
+      </div>
+    </div>
+
+    <!-- Георазведка -->
+    <div id="geo-panel">
+      <div class="admin-header">
+        <h2>Георазведка</h2>
+        <button id="btn-close-geo">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Отправить зонд</h3>
+        <label style="color:#aaa; font-size:13px;">Планета:</label>
+        <select id="geo-planet"></select>
+        <button id="btn-send-probe" style="margin-top:12px; width:100%; background:#2ecc71; color:#000; border:none; padding:10px; font-weight:700; cursor:pointer;">
+          Отправить зонд (4 ч) · слотов: <span id="probe-slots">3/3</span>
+        </button>
+      </div>
+      <div class="admin-section">
+        <h3>Активные зонды</h3>
+        <div id="active-probes"></div>
+      </div>
+      <div class="admin-section">
+        <h3>Результаты разведки</h3>
+        <div id="geo-results"></div>
+        <button id="btn-clear-geo-results" class="small-btn" style="margin-top:8px;">
+          Очистить историю результатов
+        </button>
+      </div>
+    </div>
+
+    <!-- Новости -->
+    <div id="news-panel">
+      <div class="admin-header">
+        <h2>Новости</h2>
+        <button id="btn-close-news">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Верхняя полоса</h3>
+        <textarea id="news-top-input" rows="3" placeholder="Текст верхней полосы..."></textarea>
+      </div>
+      <div class="admin-section">
+        <h3>Нижняя полоса</h3>
+        <textarea id="news-bottom-input" rows="3" placeholder="Текст нижней полосы..."></textarea>
+      </div>
+      <div class="admin-section">
+        <button id="btn-save-news" style="width:100%; background:#ffe700; color:#000; border:none; padding:10px; font-weight:700; cursor:pointer;">
+          Сохранить новости
+        </button>
+      </div>
+    </div>
+
+    <!-- Редактор главного приказа (Freya) -->
+    <div id="order-edit-panel">
+      <div class="admin-header">
+        <h2>Главный приказ</h2>
+        <button id="btn-close-order-edit">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Заголовок</h3>
+        <input type="text" id="order-title" placeholder="ГЛАВНЫЙ ПРИКАЗ" maxlength="80">
+      </div>
+      <div class="admin-section">
+        <h3>Текст приказа</h3>
+        <textarea id="order-text" rows="6" placeholder="Текст для всех игроков..."></textarea>
+      </div>
+      <div class="admin-section">
+        <h3>Картинка (путь или URL)</h3>
+        <input type="text" id="order-image" placeholder="assets/poi/se.png">
+        <p style="color:#888; font-size:12px; margin-top:6px;">Оставь пустым, если без фото</p>
+      </div>
+      <div class="admin-section">
+        <button id="btn-publish-order" style="width:100%; background:#ffe700; color:#000; border:none; padding:12px; font-weight:700; cursor:pointer;">
+          Опубликовать приказ
+        </button>
+        <button id="btn-clear-order" style="width:100%; margin-top:8px; background:#333; color:#fff; border:1px solid #555; padding:10px; cursor:pointer;">
+          Снять приказ
+        </button>
+      </div>
+    </div>
+
+    <!-- Просмотр приказа (все) -->
+    <div id="order-overlay" class="order-overlay" style="display: none;">
+      <div class="order-card">
+        <button id="btn-close-order-view" class="order-close">×</button>
+        <img id="order-view-image" class="order-image" alt="" style="display: none;">
+        <div class="order-body">
+          <div class="order-label">ГЛАВНЫЙ ПРИКАЗ</div>
+          <h2 id="order-view-title"></h2>
+          <p id="order-view-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAfPaKtj0azuKWHpxmP8SesByc-A8ZBQ1g",
+      authDomain: "galactic-map-rp.firebaseapp.com",
+      projectId: "galactic-map-rp",
+      storageBucket: "galactic-map-rp.firebasestorage.app",
+      messagingSenderId: "684320545922",
+      appId: "1:684320545922:web:e049a662aacd745525689b",
+      measurementId: "G-XJRHD30K39"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    window.firebaseAuth = getAuth(app);
+    window.db = getFirestore(app);
+  </script>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
