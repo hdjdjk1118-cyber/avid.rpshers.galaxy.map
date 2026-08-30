@@ -43,6 +43,8 @@
     <button id="btn-news" style="display: none;">Новости</button>
     <button id="btn-order" style="display: none;">Главный приказ</button>
     <button id="btn-view-order" style="display: none;">Приказ</button>
+    <button id="btn-fund-approve" style="display: none;">Запросы ¢</button>
+    <button id="btn-geo-clear" style="display: none;">Сброс гео</button>
 
     <div id="news-top" class="news-bar news-top">
       <div class="news-track" id="news-top-track">
@@ -58,7 +60,7 @@
       </div>
     </div>
 
-    <!-- Админ -->
+    <!-- Админ: планеты + лог -->
     <div id="admin-panel">
       <div class="admin-header">
         <h2>Админ-панель</h2>
@@ -66,30 +68,18 @@
       </div>
       <div class="admin-section">
         <h3>Управление планетами</h3>
+        <input type="text" id="admin-planet-search" placeholder="Поиск планеты...">
         <div id="planet-list"></div>
       </div>
       <div class="admin-section">
-        <h3>Запросы средств (San)</h3>
-        <div id="admin-fund-requests"></div>
-      </div>
-      <div class="admin-section">
-        <h3>Сброс георазведки (Freya)</h3>
-        <select id="clear-geo-planet"></select>
-        <button id="btn-clear-planet-geo" style="margin-top:8px; width:100%; background:#e67e22; color:#fff; border:none; padding:8px; cursor:pointer;">
-          Очистить ресурсы выбранной планеты
-        </button>
-        <button id="btn-clear-all-geo" style="margin-top:6px; width:100%; background:#c0392b; color:#fff; border:none; padding:8px; cursor:pointer;">
-          Очистить ресурсы на ВСЕХ планетах
-        </button>
-      </div>
-      <div class="admin-section">
         <h3>Лог действий</h3>
+        <input type="text" id="admin-log-search" placeholder="Поиск в логе...">
         <div id="action-log"></div>
         <button id="btn-clear-log" class="small-btn">Очистить лог</button>
       </div>
     </div>
 
-    <!-- Флот -->
+    <!-- Флот + ДКС (Nami) -->
     <div id="fleet-panel">
       <div class="admin-header">
         <h2>Орбитальный флот</h2>
@@ -99,9 +89,15 @@
         <h3>Дивизии</h3>
         <div id="fleet-list"></div>
       </div>
+      <div class="admin-section">
+        <h3>ДКС (DSS)</h3>
+        <div id="dss-panel-body">
+          <div style="color:#666;font-size:13px;">Загрузка…</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Логистика -->
+    <!-- Логистика (San) -->
     <div id="logistics-panel">
       <div class="admin-header">
         <h2>Логистика</h2>
@@ -111,19 +107,26 @@
         <h3>Баланс: <span id="san-credits">5000</span> ¢</h3>
       </div>
       <div class="admin-section">
+        <h3>Резервы Factory Hub</h3>
+        <p style="color:#888;font-size:12px;margin-bottom:8px;">Каждая поставка с хаба −25% резерва</p>
+        <div id="hub-reserves-list"></div>
+      </div>
+      <div class="admin-section">
         <h3>Создать маршрут</h3>
-        <label style="color:#aaa; font-size:13px;">Откуда:</label>
+        <label style="color:#aaa;font-size:13px;">Откуда:</label>
         <select id="route-from"></select>
-        <label style="color:#aaa; font-size:13px; margin-top:8px; display:block;">Куда:</label>
+        <label style="color:#aaa;font-size:13px;margin-top:8px;display:block;">Куда:</label>
         <select id="route-to"></select>
-        <label style="display:flex; align-items:center; gap:8px; margin-top:12px; color:#ccc; font-size:13px; cursor:pointer;">
+        <label style="display:flex;align-items:center;gap:8px;margin-top:12px;color:#ccc;font-size:13px;cursor:pointer;">
           <input type="checkbox" id="route-convoy">
           Конвой (+3000 ¢) — защита от атак
         </label>
-        <button id="btn-create-route" style="margin-top:12px; width:100%; background:#00b4d8; color:#000; border:none; padding:10px; font-weight:700; cursor:pointer;">
+        <button id="btn-create-route" style="margin-top:12px;width:100%;background:#00b4d8;color:#000;border:none;padding:10px;font-weight:700;cursor:pointer;">
           Отправить поставку
         </button>
-        <p style="color:#888; font-size:12px; margin-top:8px;">Базовая: 500 ¢ · с конвоем: 3500 ¢ · награда: +1500 ¢</p>
+        <p style="color:#888;font-size:12px;margin-top:8px;">
+          Базовая: 500 ¢ · с конвоем: 3500 ¢ · награда: 4000 ¢ без конвоя / 1500 ¢ с конвоем
+        </p>
       </div>
       <div class="admin-section">
         <h3>Активные поставки</h3>
@@ -136,7 +139,7 @@
       </div>
     </div>
 
-    <!-- Запрос средств -->
+    <!-- Запрос средств (San) -->
     <div id="funds-panel">
       <div class="admin-header">
         <h2>Запрос средств</h2>
@@ -145,13 +148,13 @@
       <div class="admin-section">
         <h3>Баланс: <span id="san-credits-funds">5000</span> ¢</h3>
       </div>
-      <div class="admin-section">
+      <div class="admin-section" id="san-fund-form">
         <h3>Новый запрос для Freya</h3>
-        <label style="color:#aaa; font-size:13px;">Сумма (¢)</label>
+        <label style="color:#aaa;font-size:13px;">Сумма (¢)</label>
         <input type="number" id="fund-amount" min="100" step="100" value="1000">
-        <label style="color:#aaa; font-size:13px; margin-top:8px; display:block;">Комментарий</label>
+        <label style="color:#aaa;font-size:13px;margin-top:8px;display:block;">Комментарий</label>
         <textarea id="fund-comment" rows="3" placeholder="На что нужны средства..."></textarea>
-        <button id="btn-send-fund-request" style="margin-top:12px; width:100%; background:#9b59b6; color:#fff; border:none; padding:10px; font-weight:700; cursor:pointer;">
+        <button id="btn-send-fund-request" style="margin-top:12px;width:100%;background:#9b59b6;color:#fff;border:none;padding:10px;font-weight:700;cursor:pointer;">
           Отправить запрос
         </button>
       </div>
@@ -161,7 +164,19 @@
       </div>
     </div>
 
-    <!-- Георазведка -->
+    <!-- Одобрение кредитов (Freya) -->
+    <div id="fund-approve-panel">
+      <div class="admin-header">
+        <h2>Запросы средств</h2>
+        <button id="btn-close-fund-approve">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Ожидают решения</h3>
+        <div id="admin-fund-requests"></div>
+      </div>
+    </div>
+
+    <!-- Георазведка + пополнение хабов (Niverma) -->
     <div id="geo-panel">
       <div class="admin-header">
         <h2>Георазведка</h2>
@@ -169,9 +184,9 @@
       </div>
       <div class="admin-section">
         <h3>Отправить зонд</h3>
-        <label style="color:#aaa; font-size:13px;">Планета:</label>
+        <label style="color:#aaa;font-size:13px;">Планета:</label>
         <select id="geo-planet"></select>
-        <button id="btn-send-probe" style="margin-top:12px; width:100%; background:#2ecc71; color:#000; border:none; padding:10px; font-weight:700; cursor:pointer;">
+        <button id="btn-send-probe" style="margin-top:12px;width:100%;background:#2ecc71;color:#000;border:none;padding:10px;font-weight:700;cursor:pointer;">
           Отправить зонд (4 ч) · слотов: <span id="probe-slots">3/3</span>
         </button>
       </div>
@@ -184,6 +199,44 @@
         <div id="geo-results"></div>
         <button id="btn-clear-geo-results" class="small-btn" style="margin-top:8px;">
           Очистить историю результатов
+        </button>
+      </div>
+      <div class="admin-section">
+        <h3>Пополнение Factory Hub</h3>
+        <p style="color:#888;font-size:12px;margin-bottom:8px;">
+          Руда +20% · Топливо +25% · Редкие +40% · 2 часа · ресурсы на планете остаются
+        </p>
+        <label style="color:#aaa;font-size:13px;">Откуда (разведана):</label>
+        <select id="hub-refill-from"></select>
+        <label style="color:#aaa;font-size:13px;margin-top:8px;display:block;">Куда (хаб):</label>
+        <select id="hub-refill-to"></select>
+        <label style="color:#aaa;font-size:13px;margin-top:8px;display:block;">Тип ресурса:</label>
+        <select id="hub-refill-type">
+          <option value="ore">Руда (+20%)</option>
+          <option value="fuel">Топливо (+25%)</option>
+          <option value="rare">Редкие (+40%)</option>
+        </select>
+        <button id="btn-hub-refill" style="margin-top:12px;width:100%;background:#2ecc71;color:#000;border:none;padding:10px;font-weight:700;cursor:pointer;">
+          Отправить конвой (2 ч)
+        </button>
+        <div id="hub-refill-active" style="margin-top:10px;"></div>
+      </div>
+    </div>
+
+    <!-- Сброс гео (Freya) -->
+    <div id="geo-clear-panel">
+      <div class="admin-header">
+        <h2>Сброс георазведки</h2>
+        <button id="btn-close-geo-clear">×</button>
+      </div>
+      <div class="admin-section">
+        <h3>Планета</h3>
+        <select id="clear-geo-planet"></select>
+        <button id="btn-clear-planet-geo" style="margin-top:8px;width:100%;background:#e67e22;color:#fff;border:none;padding:8px;cursor:pointer;">
+          Очистить ресурсы выбранной планеты
+        </button>
+        <button id="btn-clear-all-geo" style="margin-top:6px;width:100%;background:#c0392b;color:#fff;border:none;padding:8px;cursor:pointer;">
+          Очистить ресурсы на ВСЕХ планетах
         </button>
       </div>
     </div>
@@ -203,13 +256,13 @@
         <textarea id="news-bottom-input" rows="3" placeholder="Текст нижней полосы..."></textarea>
       </div>
       <div class="admin-section">
-        <button id="btn-save-news" style="width:100%; background:#ffe700; color:#000; border:none; padding:10px; font-weight:700; cursor:pointer;">
+        <button id="btn-save-news" style="width:100%;background:#ffe700;color:#000;border:none;padding:10px;font-weight:700;cursor:pointer;">
           Сохранить новости
         </button>
       </div>
     </div>
 
-    <!-- Редактор главного приказа (Freya) -->
+    <!-- Главный приказ -->
     <div id="order-edit-panel">
       <div class="admin-header">
         <h2>Главный приказ</h2>
@@ -226,19 +279,18 @@
       <div class="admin-section">
         <h3>Картинка (путь или URL)</h3>
         <input type="text" id="order-image" placeholder="assets/poi/se.png">
-        <p style="color:#888; font-size:12px; margin-top:6px;">Оставь пустым, если без фото</p>
+        <p style="color:#888;font-size:12px;margin-top:6px;">Оставь пустым, если без фото</p>
       </div>
       <div class="admin-section">
-        <button id="btn-publish-order" style="width:100%; background:#ffe700; color:#000; border:none; padding:12px; font-weight:700; cursor:pointer;">
+        <button id="btn-publish-order" style="width:100%;background:#ffe700;color:#000;border:none;padding:12px;font-weight:700;cursor:pointer;">
           Опубликовать приказ
         </button>
-        <button id="btn-clear-order" style="width:100%; margin-top:8px; background:#333; color:#fff; border:1px solid #555; padding:10px; cursor:pointer;">
+        <button id="btn-clear-order" style="width:100%;margin-top:8px;background:#333;color:#fff;border:1px solid #555;padding:10px;cursor:pointer;">
           Снять приказ
         </button>
       </div>
     </div>
 
-    <!-- Просмотр приказа (все) -->
     <div id="order-overlay" class="order-overlay" style="display: none;">
       <div class="order-card">
         <button id="btn-close-order-view" class="order-close">×</button>
