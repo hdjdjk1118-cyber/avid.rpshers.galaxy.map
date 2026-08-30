@@ -1080,3 +1080,274 @@ html, body {
   line-height: 1.5;
   white-space: pre-wrap;
 }
+
+/* ===== Поиск в админке ===== */
+#admin-planet-search,
+#admin-log-search {
+  width: 100%;
+  margin-bottom: 10px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* ===== Freya: Запросы ¢ ===== */
+#btn-fund-approve {
+  position: absolute;
+  top: 200px;
+  left: 12px;
+  z-index: 1000;
+  background: #9b59b6;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: none;
+}
+#btn-fund-approve:hover {
+  background: #bb8fce;
+}
+
+#fund-approve-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #9b59b6;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#fund-approve-panel.open {
+  right: 0;
+}
+
+/* ===== Freya: Сброс гео ===== */
+#btn-geo-clear {
+  position: absolute;
+  top: 240px;
+  left: 12px;
+  z-index: 1000;
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: none;
+}
+#btn-geo-clear:hover {
+  background: #f39c12;
+}
+
+#geo-clear-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #e67e22;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#geo-clear-panel.open {
+  right: 0;
+}
+
+/* ===== Поиск в админке ===== */
+#admin-planet-search,
+#admin-log-search {
+  width: 100%;
+  margin-bottom: 10px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* ===== Freya: Запросы ¢ ===== */
+#btn-fund-approve {
+  position: absolute;
+  top: 200px;
+  left: 12px;
+  z-index: 1000;
+  background: #9b59b6;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: none;
+}
+#btn-fund-approve:hover { background: #bb8fce; }
+
+#fund-approve-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #9b59b6;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#fund-approve-panel.open { right: 0; }
+
+/* ===== Freya: Сброс гео ===== */
+#btn-geo-clear {
+  position: absolute;
+  top: 240px;
+  left: 12px;
+  z-index: 1000;
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: none;
+}
+#btn-geo-clear:hover { background: #f39c12; }
+
+#geo-clear-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100%;
+  background: #0d0d0d;
+  border-left: 2px solid #e67e22;
+  z-index: 2000;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#geo-clear-panel.open { right: 0; }
+
+/* ===== Резервы хабов ===== */
+.hub-reserve-item {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #ccc;
+}
+.hub-reserve-item strong {
+  color: #00b4d8;
+}
+.hub-reserve-bar {
+  background: #222;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.hub-reserve-fill {
+  height: 100%;
+  background: #00b4d8;
+  transition: width 0.3s ease;
+}
+.hub-reserve-fill.low {
+  background: #ff2a2a;
+}
+.hub-reserve-fill.mid {
+  background: #ff9800;
+}
+
+/* ===== ДКС ===== */
+.dss-box {
+  background: #141414;
+  border: 1px solid #ffe700;
+  padding: 12px;
+  font-size: 13px;
+  color: #ccc;
+}
+.dss-box .dss-title {
+  color: #ffe700;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.dss-box .dss-status {
+  margin: 4px 0;
+  font-size: 12px;
+}
+.dss-ability-btn {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  border: 1px solid #ffe700;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  background: #1a1a1a;
+  color: #ffe700;
+  text-align: left;
+}
+.dss-ability-btn:hover {
+  background: #222;
+}
+.dss-ability-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: #555;
+  color: #888;
+}
+.dss-move-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+.dss-move-row select {
+  flex: 1;
+  background: #111;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 6px;
+}
+.dss-move-row button {
+  background: #ffe700;
+  color: #000;
+  border: none;
+  padding: 6px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== Конвои пополнения хабов ===== */
+.hub-refill-item {
+  background: #1a1a1a;
+  border: 1px solid #2ecc71;
+  padding: 8px 10px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #ccc;
+}
