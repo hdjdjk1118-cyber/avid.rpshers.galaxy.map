@@ -462,7 +462,7 @@
     "image": "assets/poi/ij.png"
   },
     {
-    "name": "Валмокс",
+    "name": "Valmox",
     "x": 2375,
     "y": 1234,
     "sector": "Rictus",
@@ -473,7 +473,7 @@
     "image": "assets/poi/sl.png"
   },
   {
-    "name": "Иро",
+    "name": "Iro",
     "x": 2310,
     "y": 1122,
     "sector": "Rictus",
@@ -484,7 +484,7 @@
     "image": "assets/poi/mbh.png"
   },
   {
-    "name": "Графмере",
+    "name": "Grafmere",
     "x": 2124,
     "y": 1186,
     "sector": "Rictus",
@@ -495,7 +495,7 @@
     "image": "assets/poi/ic.png"
   },
   {
-    "name": "Оазис",
+    "name": "Oasis",
     "x": 2002,
     "y": 1108,
     "sector": "Rictus",
@@ -506,7 +506,7 @@
     "image": "assets/poi/brilliance.png"
   },
   {
-    "name": "Генезис-Прайм",
+    "name": "Genesis-Prime",
     "x": 1848,
     "y": 1109,
     "sector": "Rictus",
@@ -517,7 +517,7 @@
     "image": "assets/poi/pl.png"
   },
   {
-    "name": "Керт-Секундас",
+    "name": "Kerth-Secunus",
     "x": 2087,
     "y": 1326,
     "sector": "Rictus",
@@ -528,7 +528,7 @@
     "image": "assets/poi/mkb.png"
   },
   {
-    "name": "Парш",
+    "name": "Parsh",
     "x": 1923,
     "y": 1342,
     "sector": "Rictus",
@@ -539,7 +539,7 @@
     "image": "assets/poi/mkp.png"
   },
   {
-    "name": "Эффлувия",
+    "name": "Effulvia",
     "x": 1954,
     "y": 1498,
     "sector": "Cancri",
@@ -550,7 +550,7 @@
     "image": "assets/poi/lh.png"
   },
   {
-    "name": "Сейшельский Пляж",
+    "name": "Seyshel Beach",
     "x": 2197,
     "y": 1550,
     "sector": "Cancri",
@@ -561,7 +561,7 @@
     "image": "assets/poi/p.png"
   },
   {
-    "name": "Форт Безопасности",
+    "name": "Fort Sanctuary",
     "x": 2310,
     "y": 1578,
     "sector": "Cancri",
@@ -572,7 +572,7 @@
     "image": "assets/poi/fh.png"
   },
   {
-    "name": "Цербер IIIc",
+    "name": "Cerberus IIIc",
     "x": 2004,
     "y": 1620,
     "sector": "Cancri",
@@ -583,7 +583,7 @@
     "image": "assets/poi/lsp.png"
   },
   {
-    "name": "Водопады Процветания",
+    "name": "Prosperity Falls",
     "x": 1997,
     "y": 1749,
     "sector": "Cancri",
